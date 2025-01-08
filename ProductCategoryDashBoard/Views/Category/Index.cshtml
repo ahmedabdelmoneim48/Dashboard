@@ -1,0 +1,43 @@
+﻿@model IEnumerable<dynamic> 
+
+@{
+    ViewData["Title"] = "Category";
+}
+
+<h2 class="text-center mb-5">Category</h2>
+
+<div class="row mb-5">
+    <div class="col">
+        <a class="btn btn-primary" asp-controller="Category" asp-action="Index">New Category</a>
+    </div>
+    <div class="col">
+    </div>
+
+</div>
+
+<table class="table table-bordered table-striped w-50">
+    <thead>
+        <tr>
+            <th style="width: 20%;">Category Name</th>
+            <th style="width: 20%;">Product Count</th>
+            <th style="width: 60%; text-align: center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.CategoryName</td>
+                <td>@category.ProductCount</td>
+                <td style="white-space:nowrap">
+                    <a class="btn btn-primary btn-sm" asp-controller="Category" asp-action="Index"
+                       @* asp-route-id="@product.Id" *@>Edit</a>
+                    <a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"
+                       asp-controller="Category" asp-action="Index"
+                       @* asp-route-id="@product.Id" *@>Delete</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

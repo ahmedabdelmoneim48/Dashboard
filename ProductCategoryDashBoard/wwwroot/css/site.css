@@ -1,0 +1,56 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+/* General styles for the pagination container */
+.pagination {
+    display: inline-block;
+    margin: 20px 0;
+    padding-left: 0;
+    list-style: none;
+}
+
+    /* Style for each pagination item (li) */
+    .pagination li {
+        display: inline;
+        margin-right: 5px;
+    }
+
+        /* Style for each pagination link (a) */
+        .pagination li a {
+            color: #007bff; /* Text color (blue for links) */
+            padding: 8px 16px;
+            text-decoration: none; /* Remove underline from links */
+            border: 1px solid #ddd; /* Border around each page link */
+            border-radius: 4px; /* Rounded corners */
+            background-color: #fff; /* Background color */
+        }
+
+            /* Style for the "Previous" and "Next" buttons when hovered */
+            .pagination li a:hover,
+            .pagination li a:focus {
+                background-color: #f1f1f1; /* Light gray background on hover/focus */
+                color: #007bff; /* Blue text on hover/focus */
+            }
+
+    /* Style for the "Previous" and "Next" buttons when disabled */
+    .pagination .disabled a {
+        color: #ccc; /* Light gray text */
+        pointer-events: none; /* Disable clicking */
+        cursor: not-allowed; /* Change cursor to not-allowed */
+    }
