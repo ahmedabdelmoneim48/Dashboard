@@ -15,12 +15,44 @@ namespace ProductCategoryDashBoard.DBContext.SeedingData
                 context.Categories.AddRange(
                     new Category
                     {
-                        Name = "Fruits"
+                        Name = "Fruits",
+                        Active = true,
+                        CreatedAt = DateTime.Now,
+                        Descrption = string.Empty,
+                        ImageFileName = "fruits.jpg"
                     },
                     new Category
                     {
-                        Name = "Grocery"
-                    });
+                        Name = "Grocery",
+                        Active = true,
+                        CreatedAt = DateTime.Now,
+                        Descrption = string.Empty,
+                        ImageFileName = "grocery.jpg"
+                    },
+                    new Category
+                    {
+                        Name = "Electronics",
+                        Active = true,
+                        CreatedAt = DateTime.Now,
+                        Descrption = string.Empty,
+                        ImageFileName = "electronic.jpg"
+                    }
+                );
+                context.SaveChanges();
+            }
+
+            if (!context.SubCategories.Any())
+            {
+                context.SubCategories.AddRange(
+                    new SubCategory
+                    {
+                        Name = "Phones",
+                        Active = true,
+                        CreatedAt = DateTime.Now,
+                        CategoryId = 3
+                    }
+                );
+                context.SaveChanges();
             }
 
             if (!context.Products.Any())
@@ -36,7 +68,8 @@ namespace ProductCategoryDashBoard.DBContext.SeedingData
                             Price = 1.50m,
                             Description = "american apples",
                             ImageFileName = "apples.jpg",
-                            CreatedAt = DateTime.Now
+                            CreatedAt = DateTime.Now,
+                            OutOfStock = 10
                         },
                         new Products
                         {
@@ -46,7 +79,8 @@ namespace ProductCategoryDashBoard.DBContext.SeedingData
                             Price = 0.50m,
                             Description = "egyptian bananas",
                             ImageFileName = "bananas.jpg",
-                            CreatedAt = DateTime.Now
+                            CreatedAt = DateTime.Now,
+                            OutOfStock = 20
                         },
                         new Products
                         {
@@ -56,7 +90,8 @@ namespace ProductCategoryDashBoard.DBContext.SeedingData
                             Price = 1.50m,
                             Description = "egyptian watermelon",
                             ImageFileName = "watermelon.jpg",
-                            CreatedAt = DateTime.Now
+                            CreatedAt = DateTime.Now,
+                            OutOfStock = 30
                         },
                         new Products
                         {
@@ -66,7 +101,8 @@ namespace ProductCategoryDashBoard.DBContext.SeedingData
                             Price = 0.25m,
                             Description = "egyptian tomatos",
                             ImageFileName = "tomatos.jpg",
-                            CreatedAt = DateTime.Now
+                            CreatedAt = DateTime.Now,
+                            OutOfStock = 40
                         },
                         new Products
                         {
@@ -76,7 +112,8 @@ namespace ProductCategoryDashBoard.DBContext.SeedingData
                             Price = 0.25m,
                             Description = "american lettuce",
                             ImageFileName = "lettuce.jpg",
-                            CreatedAt = DateTime.Now
+                            CreatedAt = DateTime.Now,
+                            OutOfStock = 50
                         },
                         new Products
                         {
@@ -86,73 +123,13 @@ namespace ProductCategoryDashBoard.DBContext.SeedingData
                             Price = 0.75m,
                             Description = "egyptian carrots",
                             ImageFileName = "carrots.jpg",
-                            CreatedAt = DateTime.Now
+                            CreatedAt = DateTime.Now,
+                            OutOfStock = 60
+                            
                         }
 
 
                 );
-
-
-                //if (!context.Users.Any())
-                //{
-                //    context.Users.AddRange(
-                //        new User
-                //        {
-                //            FirstName = "ahmed",
-                //            LastName = "mohamed",
-                //            Email = "ahmedmohamed@gmail.com",
-                //            PasswordHash = "null",
-                //            CreatedAt = DateTime.Now
-                //        },
-                //        new User
-                //        {
-                //            FirstName = "ali",
-                //            LastName = "ali",
-                //            Email = "ali@gmail.com",
-                //            PasswordHash = "null",
-                //            CreatedAt = DateTime.Now
-                //        });
-                //}
-                //if (!context.Orders.Any())
-                //{
-                //    context.Orders.AddRange(
-                //        new Order
-                //        {
-                //            UserId = 1,
-                //            OrderDate = DateTime.Now,
-                //            Status = "Pending"
-
-                //        },
-                //        new Order
-                //        {
-                //            UserId = 2,
-                //            OrderDate = DateTime.Now,
-                //            Status = "Pending"
-
-                //        });
-                //}
-
-
-                //if (!context.OrderItems.Any())
-                //{
-                //    context.OrderItems.AddRange(
-                //        new OrderItem
-                //        {
-                //            OrderId = 1,
-                //            ProductId = 1,
-                //            Quantity = 2,
-                //            Price = 3m
-
-                //        },
-                //        new OrderItem
-                //        {
-                //            OrderId = 1,
-                //            ProductId = 1,
-                //            Quantity = 2,
-                //            Price = 2m
-
-                //        });
-                //}
                 context.SaveChanges();
             }
 

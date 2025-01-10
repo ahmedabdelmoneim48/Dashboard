@@ -3,71 +3,78 @@
 @{
 }
 
-<h2 class="text-center mb-5">Products</h2>
 
-<div class="row mb-5">
-	<div class="col">
-		<a class="btn btn-primary" asp-controller="Products" asp-action="Create">New Product</a>
+<div class="content-wrapper">
+	<!-- Your content here -->
+	<div class="content">
+
+
+		<h2 class="text-center mb-5">Products</h2>
+
+		<div class="row mb-5">
+			<div class="col">
+				<a class="btn btn-primary" asp-controller="Products" asp-action="Create">New Product</a>
+			</div>
+			<div class="col">
+			</div>
+
+		</div>
+
+
+
+		<table class="table table-bordered table-stripedS">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Name</th>
+					<th>Brand</th>
+					<th>Category Name</th>
+					<th>Price</th>
+					<th>Image</th>
+					<th>Created At</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var product in Model.Products)
+				{
+					<tr>
+						<td>@product.Id</td>
+						<td>@product.Name</td>
+						<td>@product.Brand</td>
+						<td>@product.Category.Name</td>
+						<td>@(product.Price)$</td>
+						<td><img src="/ProductsImages/@product.ImageFileName" width="100" height="70" /></td>
+						<td>@product.CreatedAt.ToString("MM/dd/yyyy")</td>
+						<td style="white-space:nowrap">
+							<a class="btn btn-primary btn-sm" asp-controller="Products" asp-action="Edit"
+							   asp-route-id="@product.Id">Edit</a>
+							<a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"
+							   asp-controller="Products" asp-action="Delete"
+							   asp-route-id="@product.Id">Delete</a>
+
+						</td>
+					</tr>
+				}
+			</tbody>
+		</table>
 	</div>
-	<div class="col">
+
+
+
+	<div class="pagination-wrapper">
+		<ul class="pagination">
+			@if (Model.CurrentPage > 1)
+			{
+				<li><a href="@Url.Action("Index", new { page = Model.CurrentPage - 1 })">Previous</a></li>
+			}
+
+			@if (Model.CurrentPage < Model.TotalPages)
+			{
+				<li><a href="@Url.Action("Index", new { page = Model.CurrentPage + 1 })">Next</a></li>
+			}
+		</ul>
 	</div>
-
 </div>
-
-
-
-<table class="table table-bordered table-stripedS">
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Name</th>
-			<th>Brand</th>
-			<th>Category Name</th>
-			<th>Price</th>
-			<th>Image</th>
-			<th>CreatedAt</th>
-			<th>Action</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (var product in Model.Products)
-		{
-			<tr>
-				<td>@product.Id</td>
-				<td>@product.Name</td>
-				<td>@product.Brand</td>
-				<td>@product.Category.Name</td>
-				<td>@(product.Price)$</td>
-				<td><img src="/ProductsImages/@product.ImageFileName" width="100" height="70" /></td>
-				<td>@product.CreatedAt.ToString("MM/dd/yyyy")</td>
-				<td style="white-space:nowrap">
-					<a class="btn btn-primary btn-sm" asp-controller="Products" asp-action="Edit"
-					   asp-route-id="@product.Id">Edit</a>
-					<a class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')"
-					   asp-controller="Products" asp-action="Delete"
-					   asp-route-id="@product.Id">Delete</a>
-
-				</td>
-			</tr>
-		}
-	</tbody>
-</table>
-
-
-
-<div>
-	<ul class="pagination">
-		@if (Model.CurrentPage > 1)
-		{
-			<li><a href="@Url.Action("Index", new { page = Model.CurrentPage - 1 })">Previous</a></li>
-		}
-
-		@if (Model.CurrentPage < Model.TotalPages)
-		{
-			<li><a href="@Url.Action("Index", new { page = Model.CurrentPage + 1 })">Next</a></li>
-		}
-	</ul>
-</div>
-
 
 

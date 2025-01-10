@@ -3,6 +3,8 @@ using ProductCategoryDashBoard.DBContext;
 using ProductCategoryDashBoard.DBContext.SeedingData;
 using AutoMapper;
 using ProductCategoryDashBoard.DBContext.Mapping;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 

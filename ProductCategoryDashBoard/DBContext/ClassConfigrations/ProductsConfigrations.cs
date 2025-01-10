@@ -20,13 +20,13 @@ namespace ProductCategoryDashBoard.DBContext.ClassConfigrations
             builder.HasOne(p => p.Category)
                    .WithMany(c => c.Products)
                    .HasForeignKey(p => p.CategoryId)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(p => p.SubCategory)
                    .WithMany(s => s.Products)
                    .HasForeignKey(p => p.SubCategoryId)
                    .IsRequired(false)  
-                   .OnDelete(DeleteBehavior.SetNull);  
+                   .OnDelete(DeleteBehavior.NoAction);  
         }
     
     }

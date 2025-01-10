@@ -46,6 +46,7 @@ namespace ProductCategoryDashBoard.Controllers
             };
             return View(model);
         }
+        
 
         public async Task<IActionResult> Create()
         {
@@ -72,8 +73,8 @@ namespace ProductCategoryDashBoard.Controllers
 
             // Check If the product already exists, return an error message
             var existingProduct = await _context.Products
-                                  .FirstOrDefaultAsync(p => p.Name == productsDto.Name &&
-                                                            p.Brand == productsDto.Brand &&
+                                  .FirstOrDefaultAsync(p => p.Name.ToLower() == productsDto.Name.ToLower() &&
+                                                            p.Brand.ToLower() == productsDto.Brand.ToLower() &&
                                                             p.Price == productsDto.Price);
 
             if (existingProduct != null)
@@ -194,9 +195,9 @@ namespace ProductCategoryDashBoard.Controllers
 
 
 
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var product = _context.Products.Find(id);
+            var product = await _context.Products.FindAsync(id);
             if (product == null)
             {
                 return RedirectToAction("Index", "Products");
@@ -207,7 +208,7 @@ namespace ProductCategoryDashBoard.Controllers
             System.IO.File.Delete(imageFilePath);
 
             _context.Products.Remove(product);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "Products");
         }

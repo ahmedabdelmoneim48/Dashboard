@@ -1,5 +1,4 @@
-﻿
-@model ProductsDto
+﻿@model ProductsDto
 @{
 }
 
@@ -36,11 +35,6 @@
 							<option value="@category.Value">@category.Text</option>
 						}
 
-						@* <option value="Other">Other</option>
-
-						<option value="Grocery">Grocery</option>
-
-						<option value="Fruits">Fruits</option> *@
 					</select>
 				</div>
 			</div>
@@ -78,6 +72,14 @@
 					<a class="btn btn-outline-primary" asp-controller="Products" asp-action="Index" role="button">Cancel</a>
 				</div>
 			</div>
+
+			@section Scripts
+			{
+				@{
+					await Html.RenderPartialAsync("_ValidationScriptsPartial");
+				}
+			}
+
 		</form>
 	</div>
 </div>

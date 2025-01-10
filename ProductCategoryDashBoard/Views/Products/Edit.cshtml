@@ -88,7 +88,7 @@
 
 
 			<div class="row mb-3">
-				<label class="col-sm-4 col-form-label">Created In</label>
+				<label class="col-sm-4 col-form-label">Created At</label>
 				<div class="col-sm-8">
 					<input class="form-control-plaintext" readonly value="@ViewData["CreatedIn"]" />
 				</div>
@@ -103,6 +103,14 @@
 					<a class="btn btn-outline-primary" asp-controller="Products" asp-action="Index" role="button">Cancel</a>
 				</div>
 			</div>
+
+			@section Scripts
+			{
+				@{
+					await Html.RenderPartialAsync("_ValidationScriptsPartial");
+				}
+			}
+
 		</form>
 	</div>
 </div>

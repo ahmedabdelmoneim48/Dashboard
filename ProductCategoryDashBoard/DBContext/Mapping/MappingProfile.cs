@@ -21,7 +21,9 @@ namespace ProductCategoryDashBoard.DBContext.Mapping
                             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                             .ForMember(dest => dest.Active, opt => opt.MapFrom(src => src.Active))
-                            .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt));
+                            .ForMember(dest => dest.Descrption, opt => opt.MapFrom(src => src.Descrption))
+                            .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
+                            .ForMember(dest => dest.ImageFileName, opt => opt.Ignore());
         }
     }
 }
