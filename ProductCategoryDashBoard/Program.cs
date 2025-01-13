@@ -1,10 +1,17 @@
 using Microsoft.EntityFrameworkCore;
-using ProductCategoryDashBoard.DBContext;
-using ProductCategoryDashBoard.DBContext.SeedingData;
+//using ProductCategoryDashBoard.DBContext;
+//using ProductCategoryDashBoard.DBContext.SeedingData;
 using AutoMapper;
-using ProductCategoryDashBoard.DBContext.Mapping;
+//using ProductCategoryDashBoard.DBContext.Mapping;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
+using DashBoard.BLL.Interfaces;
+using DashBoard.DAL.Models;
+using DashBoard.DAL.DBContext;
+using DashBoard.DAL.DBContext.SeedingData;
+using ProductCategoryDashBoard.Helper.Mapping;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +26,13 @@ builder.Services.AddDbContext<AppDBContext>(options =>
 
 // AutoMapper Services
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+
+
+//builder.Services.AddScoped<IProductsRepository>
+
+
+
 
 var app = builder.Build();
 

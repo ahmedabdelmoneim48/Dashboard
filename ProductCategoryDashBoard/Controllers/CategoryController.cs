@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using ProductCategoryDashBoard.DBContext;
-using ProductCategoryDashBoard.Models;
+using DashBoard.DAL.DBContext;
+using DashBoard.DAL.Models;
 using ProductCategoryDashBoard.ViewModels;
+
+
 
 namespace ProductCategoryDashBoard.Controllers
 {

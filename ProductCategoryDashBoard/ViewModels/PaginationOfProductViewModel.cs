@@ -1,4 +1,4 @@
-﻿using ProductCategoryDashBoard.Models;
+﻿using DashBoard.DAL.Models;
 
 namespace ProductCategoryDashBoard.ViewModels
 {

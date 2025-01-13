@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ProductCategoryDashBoard.DBContext;
-using ProductCategoryDashBoard.Models;
+using DashBoard.DAL.DBContext;
+using DashBoard.DAL.Models;
 using ProductCategoryDashBoard.ViewModels;
 
 
@@ -22,7 +22,7 @@ namespace ProductCategoryDashBoard.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(int searchInput, int page = 1)
         {
             int pageSize = 5;
             int totalItems = _context.Products.Count();
@@ -115,7 +115,10 @@ namespace ProductCategoryDashBoard.Controllers
         }
 
 
-
+        public async Task<IActionResult> Details(int id)
+        {
+            return View();
+        }
 
         public async Task<IActionResult> Edit(int id)
         {
