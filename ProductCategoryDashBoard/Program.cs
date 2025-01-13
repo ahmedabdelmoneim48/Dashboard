@@ -21,7 +21,8 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDBContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseMySql("DefaultConnection", ServerVersion.AutoDetect("DefaultConnection"));
 });
 
 // AutoMapper Services
