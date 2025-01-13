@@ -1,0 +1,113 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+/* General styles for the pagination container */
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full viewport height */
+}
+
+/* Content section - Your product list */
+.content {
+    flex: 1; /* Takes the remaining space between header and footer */
+    padding: 20px;
+    overflow: auto; /* Allows scrolling if content exceeds the viewport height */
+}
+
+/* Pagination section */
+.pagination-wrapper {
+    padding: 10px;
+    text-align: center;
+    background-color: #f8f9fa; /* Light background color for the footer */
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+}
+
+
+/* Pagination styling */
+.pagination {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: inline-flex;
+    gap: 10px;
+}
+
+    .pagination li {
+        display: inline;
+    }
+
+        .pagination li a {
+            text-decoration: none;
+            color: #007bff;
+            padding: 8px 16px;
+            border: 1px solid #007bff;
+            border-radius: 4px;
+        }
+
+            .pagination li a:hover {
+                background-color: #007bff;
+                color: white;
+            }
+
+        .pagination li.active a {
+            background-color: #007bff;
+            color: white;
+        }
+
+
+/*.pagination {
+    display: inline-block;
+    margin: 20px 0;
+    padding-left: 0;
+    list-style: none;
+}*/
+
+    /* Style for each pagination item (li) */
+    /*.pagination li {
+        display: inline;
+        margin-right: 5px;
+    }*/
+
+        /* Style for each pagination link (a) */
+        /*.pagination li a {
+            color: #007bff;*/ /* Text color (blue for links) */
+            /*padding: 8px 16px;
+            text-decoration: none;*/ /* Remove underline from links */
+            /*border: 1px solid #ddd;*/ /* Border around each page link */
+            /*border-radius: 4px;*/ /* Rounded corners */
+            /*background-color: #fff;*/ /* Background color */
+        /*}*/
+
+            /* Style for the "Previous" and "Next" buttons when hovered */
+            /*.pagination li a:hover,
+            .pagination li a:focus {
+                background-color: #f1f1f1;*/ /* Light gray background on hover/focus */
+                /*color: #007bff;*/ /* Blue text on hover/focus */
+            /*}*/
+
+    /* Style for the "Previous" and "Next" buttons when disabled */
+    /*.pagination .disabled a {
+        color: #ccc;*/ /* Light gray text */
+        /*pointer-events: none;*/ /* Disable clicking */
+        /*cursor: not-allowed;*/ /* Change cursor to not-allowed */
+    /*}*/
