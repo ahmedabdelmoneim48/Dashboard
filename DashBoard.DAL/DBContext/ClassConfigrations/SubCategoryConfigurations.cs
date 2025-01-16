@@ -13,18 +13,16 @@ namespace ProductCategoryDashBoard.DBContext.ClassConfigrations
             builder.Property(s => s.Name).IsRequired().HasMaxLength(255);
             builder.Property(s => s.Active).IsRequired(false).HasDefaultValue(true);
             builder.Property(s => s.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            builder.Property(s => s.Descrption).IsRequired().HasMaxLength(255);
+            builder.Property(s => s.ImageFileName).HasMaxLength(255).IsRequired(true);
 
-            // Configure relationships
             builder.HasOne(s => s.Category)
                    .WithMany(c => c.SubCategories)
                    .HasForeignKey(s => s.CategoryId)
-                   .OnDelete(DeleteBehavior.NoAction);
+                   .OnDelete(DeleteBehavior.Restrict)
+                   .IsRequired();
 
-            builder.HasMany(s => s.Products)
-                   .WithOne(p => p.SubCategory)
-                   .HasForeignKey(p => p.SubCategoryId)
-                   .IsRequired(false)
-                   .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

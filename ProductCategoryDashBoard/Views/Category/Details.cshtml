@@ -1,0 +1,93 @@
+﻿
+@model CategoryDto
+@{
+}
+
+<div class="row">
+	<div class="col-md-8" mx-auto rounded border p3">
+		<h2 class="text-center mb-5">View Category</h2>
+		<div class="row mb-3">
+			<div class="offset-sm-4 col-sm-8">
+				<img src="/CategoryImages/@ViewData["ImageFileName"]" width="500" height="200" />
+			</div>
+
+		</div>
+
+		<form method="post" enctype="multipart/form-data">
+			<div class="row mb-3">
+				<label class="col-sm-4 col-form-label">Number</label>
+				<div class="col-sm-8">
+					<input class="form-control-plaintext" readonly value="@ViewData["CategoryId"]" />
+				</div>
+			</div>
+			<div class="row mb-3">
+				<label class="col-sm-4 col-form-label">Name</label>
+				<div class="col-sm-8">
+					<input class="form-control" asp-for="Name" value="@Model.Name" readonly />
+				</div>
+			</div>
+
+			<div class="row mb-3">
+				<label class="col-sm-4 col-form-label">Descrption</label>
+				<div class="col-sm-8">
+					<input class="form-control" asp-for="Descrption" value="@Model.Descrption" readonly />
+				</div>
+			</div>
+
+
+			<div class="row mb-3">
+				<label class="col-sm-4 col-form-label">Last Update</label>
+				<div class="col-sm-8">
+					<input class="form-control-plaintext" readonly value="@ViewData["CreatedIn"]" />
+				</div>
+			</div>
+
+		</form>
+	</div>
+
+
+</div>
+
+
+
+<div class="row">
+	<div class="col-md-8 mx-auto rounded border p-3 mt-4">
+		<h4 class="text-center mb-5">SubCategories</h4>
+
+		@if (ViewData["SubCategories"] is List<SubCategoryDto> subCategories && subCategories.Any())
+		{
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th><strong>ID</strong></th>
+						<th><strong>Name</strong></th>
+						@* <th><strong>Products Count</strong></th> *@
+						<th><strong>Active</strong></th>
+						<th><strong>Created At</strong></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var subCategory in subCategories)
+					{
+						<tr>
+							<td>@subCategory.Id</td>
+							<td>@subCategory.Name</td>
+							@* <td>@subCategory.ProductsCount</td> *@
+							<td>@subCategory.Active</td>
+							<td>@subCategory.CreatedAt.ToString("MM/dd/yyyy")</td>
+							<td>
+								<a class="btn btn-primary" asp-controller="SubCategory" asp-action="Index" asp-route-id="@subCategory.Id">View</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		}
+		else
+		{
+			<p>No subcategories found for this category.</p>
+		}
+	</div>
+</div>
+

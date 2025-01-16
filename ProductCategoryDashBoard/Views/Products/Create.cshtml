@@ -27,17 +27,28 @@
 			<div class="row mb-3">
 				<label class="col-sm-4 col-form-label">Category</label>
 				<div class="col-sm-8">
-					<select class="form-select" asp-for="CategoryId">
-
+					<select class="form-select" id="CategoryId" name="CategoryId" required>
 						<option value="">-- Select Category --</option>
 						@foreach (var category in ViewBag.Categories as SelectList)
 						{
 							<option value="@category.Value">@category.Text</option>
 						}
-
 					</select>
+					@* <span asp-validation-for="CategoryId" class="text-danger"></span> *@
 				</div>
 			</div>
+
+			<div class="row mb-3">
+				<label class="col-sm-4 col-form-label">SubCategory</label>
+				<div class="col-sm-8">
+					<select class="form-select" asp-for="SubCategoryId" id="SubCategoryId" required>
+						<option value="">-- Select SubCategory --</option>
+						<!-- SubCategories will be loaded dynamically based on the Category selection -->
+					</select>
+					<span asp-validation-for="SubCategoryId" class="text-danger"></span>
+				</div>
+			</div>
+
 
 			<div class="row mb-3">
 				<label class="col-sm-4 col-form-label">Price</label>
@@ -81,5 +92,47 @@
 			}
 
 		</form>
+
+		
+
 	</div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.12/signalr.min.js"></script>
+<script src="site.js"></script>
+<script>
+		$(document).ready(function () {
+		// When Category changes, fetch SubCategories
+		$('#CategoryId').change(function () {
+			var categoryId = $(this).val();
+
+			if (categoryId) {
+				$.ajax({
+					url: '@Url.Action("GetSubCategoriesByCategory", "Products")',
+					data: { categoryId: categoryId },
+					type: 'GET',
+					success: function (data) {
+						console.log("SubCategories Data: ", data);
+
+						var subCategorySelect = $('#SubCategoryId');  // Select by ID directly
+						subCategorySelect.empty();  // Clear existing options
+						subCategorySelect.append('<option value="">-- Select SubCategory --</option>');  // Add default option
+
+						// Populate subcategories
+						$.each(data, function (index, subCategory) {
+							subCategorySelect.append('<option value="' + subCategory.id + '">' + subCategory.name + '</option>');
+						});
+					},
+					error: function () {
+						alert('Error loading subcategories.');
+					}
+				});
+			} else {
+				// If no category is selected, reset subcategory options
+				$('#SubCategoryId').empty().append('<option value="">-- Select SubCategory --</option>');
+			}
+		});
+	});
+
+</script>

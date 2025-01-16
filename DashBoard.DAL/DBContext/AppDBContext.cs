@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using DashBoard.DAL.DBContext.ClassConfigrations;
 using DashBoard.DAL.Models;
+using System.Reflection;
 
 namespace DashBoard.DAL.DBContext
 {
@@ -18,17 +19,21 @@ namespace DashBoard.DAL.DBContext
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+        }
+
+
         public DbSet<Products> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
+        public DbSet<Offers> Offers { get; set; }
 
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            //modelBuilder.ApplyConfiguration(new CategoryConfigurations());
-            //modelBuilder.ApplyConfiguration(new SubCategoryConfigurations());
-            //modelBuilder.ApplyConfiguration(new ProductsConfigrations());
-
-        }
+        
     }
 }

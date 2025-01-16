@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using DashBoard.DAL.DBContext;
 using DashBoard.DAL.Models;
 using ProductCategoryDashBoard.ViewModels;
+using DashBoard.PL.ViewModels;
 
 
 
@@ -33,7 +34,7 @@ namespace ProductCategoryDashBoard.Controllers
             {
                 CategoryId = c.Id,
                 CategoryName = c.Name,
-                ProductCount = c.Products.Count(),
+                //ProductCount = c.SubCategories.Select(s => s.Products.Count()),
                 SubCategoriesCount = c.SubCategories.Count(),
                 SubCategories = c.SubCategories.Select(sc => new
                 {
@@ -50,19 +51,53 @@ namespace ProductCategoryDashBoard.Controllers
             {
                 category.CategoryId,
                 category.CategoryName,
-                category.ProductCount,
+                //category.ProductCount,
                 category.SubCategoriesCount,
                 category.CategoryImage,
                 category.CreatedAt,
                 // Set Active to true if:
                 // 1. Product count is greater than 1 OR
                 // 2. There is any subcategory with products
-                Active = category.ProductCount >= 1 || category.SubCategories.Any(sub => sub.ProductCount > 0)
+                Active = category.SubCategories.Any(sub => sub.ProductCount > 0)
             })
             .ToList();
 
            
             return View(categoriesWithActiveStatus);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var category = await _context.Categories.Include(c => c.SubCategories).FirstOrDefaultAsync(c => c.Id == id);
+
+            if (category == null)
+            {
+                return RedirectToAction("Index", "Category");
+            }
+
+            var categoryDto = _mapper.Map<CategoryDto>(category);
+
+            if (category.SubCategories == null || !category.SubCategories.Any())
+            {
+                return View(categoryDto);
+            }
+            else
+            {
+                var subCategories = category.SubCategories.Select(sc => new SubCategoryDto
+                {
+                    Id = sc.Id,
+                    Name = sc.Name,
+                    //ProductsCount = sc.Products?.Count() ?? 0,
+                    Active = sc.Active,
+                    CreatedAt = sc.CreatedAt,
+                    //SubCategoryImage = sc.ImageFileName,  
+                }).ToList();
+                ViewData["CategoryId"] = category.Id;
+                ViewData["ImageFileName"] = category.ImageFileName;
+                ViewData["CreatedIn"] = category.CreatedAt.ToString("MM/dd/yyyy");
+                ViewData["SubCategories"] = subCategories;
+                return View(categoryDto);
+            }
         }
 
 
@@ -185,11 +220,11 @@ namespace ProductCategoryDashBoard.Controllers
                 return RedirectToAction("Index", "Category");
             }
 
-            bool HasProducts = category.Products.Any();
-            if (HasProducts)
-            {
-                return RedirectToAction("Index", "Category");
-            }
+            //bool HasProducts = category.Products.Any();
+            //if (HasProducts)
+            //{
+            //    return RedirectToAction("Index", "Category");
+            //}
 
             bool HasSubCategory = category.SubCategories != null && category.SubCategories.Any();
             if (HasSubCategory)

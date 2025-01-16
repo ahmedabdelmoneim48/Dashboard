@@ -75,39 +75,38 @@ body {
         }
 
 
-/*.pagination {
-    display: inline-block;
-    margin: 20px 0;
-    padding-left: 0;
-    list-style: none;
-}*/
 
-    /* Style for each pagination item (li) */
-    /*.pagination li {
-        display: inline;
-        margin-right: 5px;
-    }*/
+.align-middle {
+    vertical-align: middle;
+}
 
-        /* Style for each pagination link (a) */
-        /*.pagination li a {
-            color: #007bff;*/ /* Text color (blue for links) */
-            /*padding: 8px 16px;
-            text-decoration: none;*/ /* Remove underline from links */
-            /*border: 1px solid #ddd;*/ /* Border around each page link */
-            /*border-radius: 4px;*/ /* Rounded corners */
-            /*background-color: #fff;*/ /* Background color */
-        /*}*/
+.p-4 {
+    padding: 1rem;
+}
 
-            /* Style for the "Previous" and "Next" buttons when hovered */
-            /*.pagination li a:hover,
-            .pagination li a:focus {
-                background-color: #f1f1f1;*/ /* Light gray background on hover/focus */
-                /*color: #007bff;*/ /* Blue text on hover/focus */
-            /*}*/
 
-    /* Style for the "Previous" and "Next" buttons when disabled */
-    /*.pagination .disabled a {
-        color: #ccc;*/ /* Light gray text */
-        /*pointer-events: none;*/ /* Disable clicking */
-        /*cursor: not-allowed;*/ /* Change cursor to not-allowed */
-    /*}*/
+.product-details-container {
+    display: flex; /* This will divide the page into two parts */
+    justify-content: space-between;
+    gap: 20px; /* Optional: adds space between the two sections */
+}
+
+.product-image {
+    flex: 0 0 40%; /* This will make the image container take 40% of the width */
+    max-width: 300px; /* Optional: limit the max width of the image */
+    text-align: center; /* Optional: center-align the image */
+}
+
+.product-info {
+    flex: 1; /* This will make the product info container take the remaining 60% of the width */
+}
+
+    .product-info h1 {
+        margin-top: 0;
+    }
+
+
+select#SubCategoryId {
+    position: relative;
+    z-index: 10; /* Ensure it appears above other elements */
+}

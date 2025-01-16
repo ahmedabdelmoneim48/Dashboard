@@ -21,12 +21,16 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDBContext>(options =>
 {
-    //options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
-    options.UseMySql("DefaultConnection", ServerVersion.AutoDetect("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+                                            b => b.MigrationsAssembly("DashBoard.PL"));
+    //options.UseMySql("DefaultConnection", ServerVersion.AutoDetect("DefaultConnection"));
 });
 
 // AutoMapper Services
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+builder.Services.AddSignalR();
+
 
 
 
@@ -55,6 +59,13 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapHub<SignalServer>("/signalServer");
+});
 
 
 //Seeding Data

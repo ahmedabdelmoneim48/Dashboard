@@ -29,12 +29,11 @@
 <table class="table table-bordered table-stripedS">
 	<thead>
 		<tr>
-			<th>Id</th>
-			<th>Category Name</th>
-			<th>Product Count</th>
+			<th></th>
+			<th></th>
+			<th>Name</th>
 			<th>Sub Categories</th>
-			<th>Active</th>
-			<th>Image</th>
+			<th>Active</th>			
 			<th>Last Update</th>
 			<th style="text-align: center;">Actions</th>
 		</tr>
@@ -44,9 +43,12 @@
 		{
 			<tr>
 				<td>@category.CategoryId</td>
+
+				<td><img src="/CategoryImages/@category.CategoryImage" width="70" height="50" style="border-radius: 50%; object-fit: cover;" /></td>
+				
 				<td>@category.CategoryName</td>
-				<td>@category.ProductCount</td>
-				<td>@category.SubCategoriesCount</td>
+				
+				<td>@category.SubCategoriesCount Sub Category</td>
 				@* <td>@(category.Active ? "Yes" : "No")</td> *@
 				<td>
 					@if (category.Active)
@@ -58,11 +60,15 @@
 						<span style="color: red; font-size: 18px;">✘</span> <!-- Cross for Inactive -->
 					}
 				</td>
-				<td><img src="/CategoryImages/@category.CategoryImage" width="100" height="70" /></td>
+				
 				<td>@category.CreatedAt</td>
 				<td style="white-space:nowrap">
 					<a class="btn btn-primary btn-sm" asp-controller="Category" asp-action="Edit"
 					   asp-route-id="@category.CategoryId">Edit</a>
+
+					<a class="btn btn-primary btn-sm" asp-controller="Category" asp-action="Details"
+					   asp-route-id="@category.CategoryId">View</a>
+
 					@* <a class="btn btn-danger btn-sm" onclick="return confirm('the Category has @category.ProductCount Products and can not be deleted before deleting Products !')"
 					   asp-controller="Category" asp-action="Delete"
 					   asp-route-id="@category.CategoryId">Delete</a> *@

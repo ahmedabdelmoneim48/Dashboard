@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using DashBoard.DAL.DBContext;
 using DashBoard.DAL.Models;
 using ProductCategoryDashBoard.ViewModels;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 
 namespace ProductCategoryDashBoard.Controllers
@@ -22,7 +23,7 @@ namespace ProductCategoryDashBoard.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> Index(int searchInput, int page = 1)
+        public async Task<IActionResult> Index( int page = 1)
         {
             int pageSize = 5;
             int totalItems = _context.Products.Count();
@@ -30,12 +31,16 @@ namespace ProductCategoryDashBoard.Controllers
 
             page = (page <  1) ? 1 : (page > totalPages) ? totalPages : page;
 
-            var products = await  _context.Products.Include(p => p.Category)
-                                                  //.Where(p => p.Price < (int)2)
-                                                  .OrderByDescending(p => p.Price)
-                                                  .Skip((page - 1) * pageSize)
-                                                  .Take(pageSize)
-                                                  .ToListAsync();
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index" , "Home");
+            }
+            var products = await  _context.Products.Include(p => p.SubCategory)
+                                                   .Include(p => p.SubCategory.Category)
+                                                   .OrderByDescending(p => p.Price)
+                                                   .Skip((page - 1) * pageSize)
+                                                   .Take(pageSize)
+                                                   .ToListAsync();
 
             var model = new PaginationOfProductViewModel
             {
@@ -44,6 +49,8 @@ namespace ProductCategoryDashBoard.Controllers
                 TotalPages = totalPages,
                 CurrentPage = page
             };
+
+
             return View(model);
         }
         
@@ -52,9 +59,10 @@ namespace ProductCategoryDashBoard.Controllers
         {
 
             var categories = await _context.Categories.ToListAsync();
-
+            var subCategories = await _context.SubCategories.ToListAsync();
             // Pass the categories to the view
             ViewBag.Categories = new SelectList(categories, "Id", "Name");
+            ViewBag.SubCategories = new SelectList(subCategories, "Id", "Name");
 
             return View();
         }
@@ -117,7 +125,9 @@ namespace ProductCategoryDashBoard.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            return View();
+            var product = await _context.Products.FindAsync(id);
+            //var productDto = _mapper.Map<ProductsDto>(product);
+            return View(product);
         }
 
         public async Task<IActionResult> Edit(int id)
@@ -186,12 +196,12 @@ namespace ProductCategoryDashBoard.Controllers
             // update product
             product.Name = productsDto.Name;
             product.Brand = productsDto.Brand;
-            product.CategoryId = productsDto.CategoryId;
+            //product.CategoryId = productsDto.CategoryId;
             product.Price = productsDto.Price;
             product.Description = productsDto.Description;
             product.ImageFileName = newFileName;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "Products");
         }
@@ -215,5 +225,26 @@ namespace ProductCategoryDashBoard.Controllers
 
             return RedirectToAction("Index", "Products");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetSubCategoriesByCategory(int categoryId)
+        {
+            // Fetch SubCategories based on the selected CategoryId
+            var subCategories = await _context.SubCategories
+                                               .Where(sc => sc.CategoryId == categoryId)
+                                               .ToListAsync();
+
+            // Return the SubCategories as JSON
+            return Json(subCategories.Select(sc => new { id = sc.Id, name = sc.Name }));
+        }
+
+        //// AJAX action to fetch SubCategories based on CategoryId
+        //public JsonResult GetSubCategories(int categoryId)
+        //{
+        //    var subCategories = _context.SubCategories
+        //                                .Where(s => s.CategoryId == categoryId)
+        //                                .ToList();
+        //    return Json(subCategories);
+        //}
     }
 }

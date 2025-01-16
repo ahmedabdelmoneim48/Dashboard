@@ -14,17 +14,9 @@ namespace DashBoard.DAL.DBContext.ClassConfigrations
             builder.Property(c => c.Name).IsRequired().HasMaxLength(255);
             builder.Property(c => c.Active).IsRequired(false).HasDefaultValue(true);
             builder.Property(c => c.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
-            builder.Property(c => c.Descrption).HasMaxLength(255);
+            builder.Property(c => c.Descrption).IsRequired(true).HasMaxLength(255);
+            builder.Property(c => c.ImageFileName).HasMaxLength(255).IsRequired(true);
 
-            builder.HasMany(c => c.SubCategories)
-                   .WithOne(s => s.Category)
-                   .HasForeignKey(s => s.CategoryId)
-                   .OnDelete(DeleteBehavior.NoAction);
-
-            builder.HasMany(c => c.Products)
-                   .WithOne(p => p.Category)
-                   .HasForeignKey(p => p.CategoryId)
-                   .OnDelete(DeleteBehavior.NoAction);
         }
 
     }

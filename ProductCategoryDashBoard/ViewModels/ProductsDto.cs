@@ -12,7 +12,10 @@ namespace ProductCategoryDashBoard.ViewModels
         public string Brand { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "The Category is required")]
-        public int CategoryId { get; set; }
+        public int SubCategoryId { get; set; }
+
+        //[Required(ErrorMessage = "The Sub Category is required")]
+        //public int SubCategoryId { get; set; }
 
         [Required(ErrorMessage = "The Price is required")]
         [Range(0.01, double.MaxValue, ErrorMessage = "The Price must be a positive number")]
